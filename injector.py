@@ -66,7 +66,7 @@ def injectArticleCard(articleData, summaryByAi):
     
     # Handling case - no image available
     if not imageUrlPrimary:
-        imageUrlPrimary = "https://via.placeholder.com/400x200?text=RecLog+Insight"
+        imageUrlPrimary = "https://placehold.co/600x300/e65100/white?text=RecLog+Insight"
 
     # Creating the HTML structure for the new article card
     newCardHTML = f"""
@@ -76,9 +76,9 @@ def injectArticleCard(articleData, summaryByAi):
                 <div class="col-md-4">
                     <img src="{imageUrlPrimary}" 
                          class="img-fluid rounded-start w-100" 
-                         alt="{articleData['title']} Cover Image"
+                         alt="{articleData['title']}"
                          style="object-fit: cover; height: 100%; min-height: 180px;"
-                         onerror="this.onerror=null;this.src='https://via.placeholder.com/800x400?text=Image+Not+Available';">
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x300/e65100/white?text=Image+Not+Found';">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body p-4 d-flex flex-column justify-content-center h-100">
@@ -86,7 +86,6 @@ def injectArticleCard(articleData, summaryByAi):
                             Latest Insight
                         </span>
                         <h5 class="card-title text-dark fw-bold mb-3">{articleData['title']}</h5>
-                        <p class="card-text text-muted small mb-3" style="font-size: 0.85rem;">{summaryByAi}</p>
                         <div>
                             <a href="{articleData['url']}" target="_blank" class="article-btn" style="font-size: 0.8rem; padding: 6px 15px;">
                                 Read on Dev.to <i class="fas fa-arrow-right ms-1"></i>
