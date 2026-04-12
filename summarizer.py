@@ -35,7 +35,7 @@ def generateSummary(markdownText):
     print(f'Gemini will summarise the article for you :)')
     
     # Construct the prompt with strict instructions for the model and limiting input to 3000 characters to avoid large requests
-    prompt = f"You are a technical editor writing metadata for a developer portfolio. Read the following markdown text from a technical blog post. Write EXACTLY a 2-sentence summary of what the article covers. Make it sound professional, focusing on the problem solved and the technologies used. CRITICAL: Do NOT use introductory phrases like 'This article discusses' or 'Here is a summary'. Just output the 2 sentences directly. ARTICLE CONTENT: {markdownText[:3000]}"
+    prompt = f"Summarize this technical article in EXACTLY 2 short sentences. Focus on 'What' and 'Why', not the detailed 'How'. Do NOT define terms. Keep it professional and punchy for a portfolio card. Article Content: {markdownText}"
     
     try:
         # Sending the prompt to the Gemini

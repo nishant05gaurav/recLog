@@ -21,6 +21,18 @@ def updateArticle():
         print("No new articles found. Nothing to update.")
         return
 
+    try:
+        with open('index.html', 'r', encoding='utf-8') as f:
+            existingContent = f.read()
+    except FileNotFoundError:
+        existingContent = ""
+
+    newArticles = [a for a in articles if a['url'] not in existingContent]
+
+    if not newArticles:
+        print("No new unique articles to add. Everything is up to date!")
+        return
+    
     # Picking the latest article
     latest = articles[0]
     print(f"Working on: {latest['title']}")

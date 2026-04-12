@@ -66,7 +66,7 @@ def injectArticleCard(articleData, summaryByAi):
     
     # Handling case - no image available
     if not imageUrlPrimary:
-        imageUrlPrimary = 'https://via.placeholder.com/600x300?text=No+Image'
+        imageUrlPrimary = "https://via.placeholder.com/400x200?text=RecLog+Insight"
 
     # Creating the HTML structure for the new article card
     newCardHTML = f"""
