@@ -1,4 +1,5 @@
 import time
+import os
 from fetcher import fetchMyArticles
 from summarizer import generateSummary
 from injector import injectArticleCard
@@ -7,8 +8,8 @@ def updateArticle():
     """
     This function handles the complete automation flow:
     1. Fetch latest articles
-    2. Generate AI summary
-    3. Inject article into portfolio
+    2. Check for unique articles (via URL and Title)
+    3. Inject only new articles into portfolio
     """
 
     print("Starting portfolio update process...")
@@ -18,38 +19,52 @@ def updateArticle():
 
     # If no articles found
     if not articles:
-        print("No new articles found. Nothing to update.")
+        print("No articles found on Dev.to. Nothing to update.")
         return
 
+    # Reading existing content to prevent duplicates
     try:
         with open('index.html', 'r', encoding='utf-8') as f:
             existingContent = f.read()
     except FileNotFoundError:
         existingContent = ""
 
-    newArticles = [a for a in articles if a['url'] not in existingContent]
+    # SMART CHECK: Check Title & URL to prevent from 'Numerous' duplication 
+    newArticles = []
+    for a in articles:
+        if a['url'] not in existingContent and a['title'] not in existingContent:
+            newArticles.append(a)
 
     if not newArticles:
         print("No new unique articles to add. Everything is up to date!")
         return
     
-    # Picking the latest article
-    latest = articles[0]
-    print(f"Working on: {latest['title']}")
+    print(f"Found {len(newArticles)} new articles. Starting injection...")
 
-    # Generating summary
-    print("Generating summary...")
-    summary = generateSummary(latest['body_markdown'])
+    # Looping through all NEW articles 
+    for latest in newArticles:
+        print(f"Working on: {latest['title']}")
 
-    # Injecting into HTML
-    print("Updating portfolio UI...")
-    isInserted = injectArticleCard(latest, summary)
+        # Summary generation (As per your requirement: you can pass empty or AI summary)
+        # Note: SummaryByAi variable name remains same as before
+        print("Generating summary...")
+        summaryByAi = generateSummary(latest['body_markdown'])
 
-    # Final status
-    if isInserted:
-        print(f"Done! Portfolio updated with: {latest['title']}")
-    else:
-        print("Something went wrong while updating the portfolio.")
+        # Injecting into HTML
+        print(f"Updating portfolio UI for: {latest['title']}...")
+        isInserted = injectArticleCard(latest, summaryByAi)
+
+        # Final status and refreshing existingContent for next loop
+        if isInserted:
+            print(f"Done! Portfolio updated with: {latest['title']}")
+            # Refresh content so the next article in the loop doesn't re-check old data
+            try:
+                with open('index.html', 'r', encoding='utf-8') as f:
+                    existingContent = f.read()
+            except:
+                pass
+        else:
+            print(f"Something went wrong while updating: {latest['title']}")
 
 if __name__ == "__main__":
     updateArticle()

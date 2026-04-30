@@ -69,16 +69,20 @@ def injectArticleCard(articleData, summaryByAi):
         imageUrlPrimary = "https://placehold.co/600x300/e65100/white?text=RecLog+Insight"
 
     # Creating the HTML structure for the new article card
+    # injector.py (update inside injectArticleCard function)
+
+    # Creating the HTML structure for the new article card
+    # Fixed object-fit and min-height to maintain consistent layout
     newCardHTML = f"""
     <div class="col-12 mb-3 auto-generated-card">
         <div class="card shadow-sm border-0 h-100 overflow-hidden" style="max-width: 800px; margin: 0 auto;">
-            <div class="row g-0 align-items-stretch h-100">
+            <div class="row g-0 align-items-stretch">
                 <div class="col-md-4">
                     <img src="{imageUrlPrimary}" 
-                         class="img-fluid rounded-start w-100" 
-                         alt="{articleData['title']}"
-                         style="object-fit: cover; height: 100%; min-height: 180px;"
-                         onerror="this.onerror=null;this.src='https://placehold.co/600x300/e65100/white?text=Image+Not+Found';">
+                         class="img-fluid rounded-start w-100 h-100" 
+                         alt="{articleData['title']} Cover Image"
+                         style="object-fit: cover; min-height: 200px;"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/e65100/ffffff?text=RecLog+Insight';">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body p-4 d-flex flex-column justify-content-center h-100">
@@ -86,6 +90,7 @@ def injectArticleCard(articleData, summaryByAi):
                             Latest Insight
                         </span>
                         <h5 class="card-title text-dark fw-bold mb-3">{articleData['title']}</h5>
+                        <p class="card-text text-muted small mb-3" style="font-size: 0.85rem;">{summaryByAi}</p>
                         <div>
                             <a href="{articleData['url']}" target="_blank" class="article-btn" style="font-size: 0.8rem; padding: 6px 15px;">
                                 Read on Dev.to <i class="fas fa-arrow-right ms-1"></i>
