@@ -9,7 +9,7 @@ ANCHOR_TEXT = "AUTOMATION: INSERT ARTICLES HERE"
 
 def isMyAnchhorComment(text):
     """
-    Check whether a given text node is the target anchor comment.This function is used while parsing HTML to identify the specific    comment node that marks where new article cards should be inserted.
+    Check whether a given text node is the target anchor comment. This function is used while parsing HTML to identify the specific comment node that marks where new article cards should be inserted.
 
     Args:
         text: A BeautifulSoup text node.
@@ -71,8 +71,6 @@ def injectArticleCard(articleData, summaryByAi):
     # Creating the HTML structure for the new article card
     # injector.py (update inside injectArticleCard function)
 
-    # Creating the HTML structure for the new article card
-    # Fixed object-fit and min-height to maintain consistent layout
     newCardHTML = f"""
     <div class="col-12 mb-3 auto-generated-card">
         <div class="card shadow-sm border-0 h-100 overflow-hidden" style="max-width: 800px; margin: 0 auto;">

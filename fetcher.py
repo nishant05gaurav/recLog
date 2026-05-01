@@ -21,7 +21,7 @@ def fetchMyArticles():
     """
     
     # Fetching articles from dev.to
-    print("Fetching articles from dev.to...")
+    print("Fetching articles from DEV.to")
     
     # Setting up request headers with API key and required format
     headers = {

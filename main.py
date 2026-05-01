@@ -12,7 +12,7 @@ def updateArticle():
     3. Inject only new articles into portfolio
     """
 
-    print("Starting portfolio update process...")
+    print("Starting Portfolio Update Process")
 
     # Fetching articles
     articles = fetchMyArticles()
@@ -29,7 +29,7 @@ def updateArticle():
     except FileNotFoundError:
         existingContent = ""
 
-    # SMART CHECK: Check Title & URL to prevent from 'Numerous' duplication 
+    # Check Title & URL to prevent from 'Numerous' duplication 
     newArticles = []
     for a in articles:
         if a['url'] not in existingContent and a['title'] not in existingContent:
@@ -39,19 +39,18 @@ def updateArticle():
         print("No new unique articles to add. Everything is up to date!")
         return
     
-    print(f"Found {len(newArticles)} new articles. Starting injection...")
+    print(f"Found {len(newArticles)} new articles. Starting injection")
 
     # Looping through all NEW articles 
     for latest in newArticles:
         print(f"Working on: {latest['title']}")
 
         # Summary generation (As per your requirement: you can pass empty or AI summary)
-        # Note: SummaryByAi variable name remains same as before
-        print("Generating summary...")
+        print("Generating Summary")
         summaryByAi = generateSummary(latest['body_markdown'])
 
         # Injecting into HTML
-        print(f"Updating portfolio UI for: {latest['title']}...")
+        print(f"Updating portfolio UI for: {latest['title']}")
         isInserted = injectArticleCard(latest, summaryByAi)
 
         # Final status and refreshing existingContent for next loop
